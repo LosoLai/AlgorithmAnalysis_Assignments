@@ -177,9 +177,17 @@ public class LinkedListMultiset<T> extends Multiset<T>
         Node<T> currNode = mHead;
 
         StringBuffer str = new StringBuffer();
+        T value = currNode.getValue();
+        int found = 0;
 
         while (currNode != null) {
-            str.append(currNode.getValue() + " ");
+        	if(value != currNode.getValue())
+        	{
+        		str.append(value + printDelim + found + "\n");
+        		value = currNode.getValue();
+        	}
+        	else
+        		found++;
             currNode = currNode.getNext();
         }
 
