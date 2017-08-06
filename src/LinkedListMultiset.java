@@ -1,4 +1,15 @@
-
+/**Implement Doubly Linked List
+ * 
+ * The operations follow the Lab_Week2 solution
+ * modified the certain data type into generic
+ * - add
+ * - search
+ * - removeOne
+ * - removeAll
+ * - print
+ * 
+ * Author : LosoLai(s3579161)
+ */
 import java.io.PrintStream;
 import java.util.*;
 
@@ -25,7 +36,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
      * @param newValue Value to add to list.
      */
 	public void add(T item) {
-		// Implement by LosoLai
         Node<T> newNode = new Node<T>(item);
         
         // If head is empty, then list is empty and head and tail references need to be initialised.
@@ -50,7 +60,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
      * @return index if value is in list, otherwise -1.
      */
 	public int search(T item) {
-		// Implement by LosoLai
 		Node<T> currNode = mHead;
         for (int i = 0; i < mLength; ++i) {
         	if (currNode.getValue() == item) {
@@ -70,7 +79,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
      * @param item Value to remove.
      */
 	public void removeOne(T item) {
-		// Implement by LosoLai
 		Node<T> currNode = mHead;
 
         // check if value is head node
@@ -113,7 +121,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	
 	
 	public void removeAll(T item) {
-		// Implement by LosoLai
 		Node<T> currNode = mHead;
 
         // check if value is head node
@@ -160,7 +167,6 @@ public class LinkedListMultiset<T> extends Multiset<T>
      * Print the list in head to tail.
      */
 	public void print(PrintStream out) {
-		// Implement by LosoLai
 		out.println(toString());
 	} // end of print()
 	
