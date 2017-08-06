@@ -1,4 +1,4 @@
-package Java_Skeleton_Code;
+
 import java.io.PrintStream;
 import java.util.*;
 
