@@ -32,7 +32,7 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	
 	/**
      * Add a new value to the start of the list.
-     * 
+     * (AddLast) 
      * @param newValue Value to add to list.
      */
 	public void add(T item) {
@@ -54,23 +54,23 @@ public class LinkedListMultiset<T> extends Multiset<T>
 	} // end of add()
 	
 	/**
-     * Returns the value stored in node at position 'index' of list.
+     * Returns the times that the item value is founded in list.
      * 
      * @param item Value to search for.
-     * @return index if value is in list, otherwise -1.
+     * @return the found variable which present how many times the value is found.
      */
 	public int search(T item) {
+		int found = 0;
 		Node<T> currNode = mHead;
         for (int i = 0; i < mLength; ++i) {
         	if (currNode.getValue() == item) {
-        		// return current index
-        		return i;
+        		found++;
         	}
             currNode = currNode.getNext();
         }
 		
-		// return -1 present item cannot find
-		return -1;
+		// return the found variable
+		return found;
 	} // end of add()
 	
 	/**
