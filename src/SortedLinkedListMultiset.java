@@ -10,6 +10,7 @@
  * Author : LosoLai(s3579161)
  */
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class SortedLinkedListMultiset<T> extends Multiset<T>
@@ -83,6 +84,11 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
 		out.println(toString());
 	} // end of print()
 	
+	@Override
+	public void print(PrintWriter out) {
+		out.println(toString());
+	} // end of print()
+	
 	/**
      * @return String representation of the list.
      */
@@ -145,5 +151,7 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
             mPrev = prev;
         }
     } // end of inner class Node
+
+
 	
 } // end of class SortedLinkedListMultiset

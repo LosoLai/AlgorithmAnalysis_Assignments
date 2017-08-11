@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 	/** Reference to head of list. */
@@ -163,8 +164,21 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 	public void print(PrintStream out) {
 		travelPrint(root, out);
 	} // end of print()
+	
+	@Override
+	public void print(PrintWriter out) {
+		travelPrint(root, out);
+	}
 
 	private void travelPrint(Node<T> top, PrintStream out) {
+		if (top != null) {
+			travelPrint(top.getLeftChild(), out);
+			out.println(top.getValue() + printDelim + top.getCount());
+			travelPrint(top.getRightChild(), out);
+		}
+	}
+	
+	private void travelPrint(Node<T> top, PrintWriter out) {
 		if (top != null) {
 			travelPrint(top.getLeftChild(), out);
 			out.println(top.getValue() + printDelim + top.getCount());
@@ -232,5 +246,7 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 			rightChild = right;
 		}
 	} // end of inner class Node
+
+
 
 } // end of class BstMultiset
