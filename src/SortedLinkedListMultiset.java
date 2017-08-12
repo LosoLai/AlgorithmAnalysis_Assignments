@@ -12,7 +12,8 @@
 import java.io.PrintStream;
 import java.util.*;
 
-public class SortedLinkedListMultiset<T> extends Multiset<T>
+
+public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
 {
 	/** Reference to head of list. */
     protected Node<T> mHead;
@@ -44,8 +45,48 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
         // otherwise, iterator each node 
         // find the specific index to add the node  
         else {
-            
+        	Node<T> currNode = mHead;
+            while (currNode != null) {
+            	// item value is smaller than value
+            	if(currNode.getValue().compareTo(item) > 0) {
+            		if(currNode.getPrev() == null)
+            		{
+            			// addBefore
+            			newNode.setNext(mHead);
+                        mHead.setPrev(newNode);
+                        mHead = newNode;
+                        break;
+            		}
+            		else
+            		{
+            			newNode.setPrev(currNode.getPrev());
+            			newNode.setNext(currNode);
+            			currNode.getPrev().setNext(newNode);
+            			currNode.setPrev(newNode);
+            			break;
+            		}
+            	}
+            	// item value is grater than value
+            	else if(currNode.getValue().compareTo(item) < 0) {
+            		if(currNode.getNext() == null)
+            		{
+            			// addLast
+            			currNode.setNext(newNode);
+            			newNode.setPrev(currNode);
+            			mTail = newNode;
+            			break;
+            		}
+            	}
+            	else {
+            		currNode.increaseFound();
+            		break;
+            	}
+            	
+            	currNode = currNode.getNext();
+            }  
         }
+        
+        mLength++;
 	} // end of add()
 	
 	/**
@@ -58,24 +99,113 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
 		int found = 0;
 		Node<T> currNode = mHead;
         for (int i = 0; i < mLength; ++i) {
-        	if (currNode.getValue() == item) {
-        		found++;
+        	if (currNode.getValue().compareTo(item) == 0) {
+        		found = currNode.getFound();
+        		return found;
         	}
             currNode = currNode.getNext();
         }
 		
-        // return the found variable
+		// return the found variable
 		return found;
 	} // end of add()
 	
 	
 	public void removeOne(T item) {
-		// Implement me!
+		Node<T> currNode = mHead;
+
+		// check if value is head node
+        if (currNode.getValue().compareTo(item) == 0) {
+            // check if length of 1
+            if (mLength == 1) {
+                mHead = mTail= null;
+            }
+            else {
+            	if(currNode.getFound() == 1)
+            	{
+            		mHead = currNode.getNext();
+            		mHead.setPrev(null);
+            		currNode = null;
+            	}
+            	else
+            		currNode.decreaseFound();
+            }
+            
+            mLength--;
+        }
+        // search for value in rest of list
+        else {
+            currNode = currNode.getNext();
+
+            while (currNode != null) {
+                if (currNode.getValue().compareTo(item) == 0) {
+                	if(currNode.getFound() == 1)
+                	{
+                		Node prevNode = currNode.getPrev();
+                        prevNode.setNext(currNode.getNext());
+                        // check if tail
+                        if (currNode.getNext() != null) {
+                        	currNode.getNext().setPrev(prevNode);
+                        }
+                        else {
+                        	mTail = prevNode;
+                        }
+                        currNode = null;
+                	}
+                	else
+                		currNode.decreaseFound();
+                    mLength--;
+                    break;
+                }
+                else
+                	currNode = currNode.getNext();
+            }	
+        }
 	} // end of removeOne()
 	
 	
 	public void removeAll(T item) {
-		// Implement me!
+		Node<T> currNode = mHead;
+
+		// check if value is head node
+        if (currNode.getValue().compareTo(item) == 0) {
+            // check if length of 1
+            if (mLength == 1) {
+                mHead = mTail= null;
+                mLength--;
+            }
+            else {
+            	int number = currNode.getFound();
+            	mLength -= number;
+            	mHead = currNode.getNext();
+            	mHead.setPrev(null);
+            	currNode = null;
+            }
+        }
+        // search for value in rest of list
+        else {
+            currNode = currNode.getNext();
+
+            while (currNode != null) {
+                if (currNode.getValue().compareTo(item) == 0) {
+                	int number = currNode.getFound();
+                	mLength -= number;
+                	Node prevNode = currNode.getPrev();
+                    prevNode.setNext(currNode.getNext());
+                    // check if tail
+                    if (currNode.getNext() != null) {
+                    	currNode.getNext().setPrev(prevNode);
+                    }
+                    else {
+                    	mTail = prevNode;
+                    }
+                    currNode = null;
+                    break;
+                }
+                else
+                	currNode = currNode.getNext();
+            }	
+        }
 	} // end of removeAll()
 	
 	
@@ -87,19 +217,22 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
      * @return String representation of the list.
      */
     public String toString() {
-        Node<T> currNode = mHead;
+    	Node<T> currNode = mHead;
 
         StringBuffer str = new StringBuffer();
+        int found = 0;
 
         while (currNode != null) {
-            str.append(currNode.getValue() + " ");
+        	str.append(currNode.getValue() + printDelim + currNode.getFound() + "\n");
             currNode = currNode.getNext();
         }
+        //test
+        str.append("mLength : " + mLength);
 
         return str.toString();
     } // end of toString();
     
-	/**
+    /**
      * Node type, inner private class.
      */
     private class Node<T>
@@ -110,11 +243,14 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
         private Node<T> mNext;
         /** Reference to previous node. */
         private Node<T> mPrev;
+        /** Stored value of the same value. */
+        private int mNumber;
 
         public Node(T value) {
             mValue = value;
             mNext = null;
             mPrev = null;
+            mNumber = 1;
         }
 
         public T getValue() {
@@ -130,6 +266,10 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
         public Node<T> getPrev() {
             return mPrev;
         }
+        
+        public int getFound() {
+        	return mNumber;
+        }
 
 
         public void setValue(T value) {
@@ -143,6 +283,14 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
         
         public void setPrev(Node<T> prev) {
             mPrev = prev;
+        }
+        
+        public void increaseFound() {
+        	mNumber++;
+        }
+        
+        public void decreaseFound() {
+        	mNumber--;
         }
     } // end of inner class Node
 	
