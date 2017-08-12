@@ -45,15 +45,28 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
         }
         // otherwise, add node to the head of list.
         else {
-        	int found = this.search(item);
-        	if(found <= 1)
+        	// scan the list to check is there having duplicate item
+        	int found = 0;
+    		Node<T> currNode = mHead;
+            for (int i = 0; i < mLength; ++i) {
+            	if (currNode.getValue().compareTo(item) == 0) {
+            		currNode.increaseFound();
+            		found = currNode.getFound();
+            		break;
+            	}
+                currNode = currNode.getNext();
+            }
+            
+        	if(found < 1)
         	{
         		newNode.setNext(mHead);
                 mHead.setPrev(newNode);
                 mHead = newNode;
         	}
         	else
+        	{
         		newNode = null;
+        	}
         }
         
         mLength++;
@@ -70,8 +83,8 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
 		Node<T> currNode = mHead;
         for (int i = 0; i < mLength; ++i) {
         	if (currNode.getValue().compareTo(item) == 0) {
-        		currNode.increaseFound();
         		found = currNode.getFound();
+        		return found;
         	}
             currNode = currNode.getNext();
         }
@@ -200,6 +213,8 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
         	str.append(currNode.getValue() + printDelim + currNode.getFound() + "\n");
             currNode = currNode.getNext();
         }
+        //test
+        str.append("mLength : " + mLength);
 
         return str.toString();
     } // end of toString();
