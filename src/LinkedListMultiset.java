@@ -142,6 +142,7 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
                 	else
                 		currNode.decreaseFound();
                     mLength--;
+                    break;
                 }
                 else
                 	currNode = currNode.getNext();
