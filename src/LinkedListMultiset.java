@@ -59,9 +59,9 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
             
         	if(found < 1)
         	{
-        		newNode.setNext(mHead);
-                mHead.setPrev(newNode);
-                mHead = newNode;
+        		mTail.setNext(newNode);
+        		newNode.setPrev(mTail);
+        		mTail = newNode;
         	}
         	else
         	{
