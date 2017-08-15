@@ -48,7 +48,7 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
         	// scan the list to check is there having duplicate item
         	int found = 0;
     		Node<T> currNode = mHead;
-            for (int i = 0; i < mLength; ++i) {
+    		while (currNode != null) {
             	if (currNode.getValue().compareTo(item) == 0) {
             		currNode.increaseFound();
             		found = currNode.getFound();
