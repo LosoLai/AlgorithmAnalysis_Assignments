@@ -213,8 +213,6 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
         	str.append(currNode.getValue() + printDelim + currNode.getFound() + "\n");
             currNode = currNode.getNext();
         }
-        //test
-        str.append("mLength : " + mLength);
 
         return str.toString();
     } // end of toString();

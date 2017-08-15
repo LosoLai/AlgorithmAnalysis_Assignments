@@ -226,8 +226,6 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
         	str.append(currNode.getValue() + printDelim + currNode.getFound() + "\n");
             currNode = currNode.getNext();
         }
-        //test
-        str.append("mLength : " + mLength);
 
         return str.toString();
     } // end of toString();
