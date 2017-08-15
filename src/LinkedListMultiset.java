@@ -81,7 +81,7 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
 	public int search(T item) {
 		int found = 0;
 		Node<T> currNode = mHead;
-        for (int i = 0; i < mLength; ++i) {
+        while (currNode != null) {
         	if (currNode.getValue().compareTo(item) == 0) {
         		found = currNode.getFound();
         		return found;
