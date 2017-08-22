@@ -81,7 +81,7 @@ public class PerformanceAnalysis
             long endTime = 0;
             double timeElapsed = 0;
             // record 10 times experiments
-            double sum = 0;
+            long sum = 0;
             
     		try {
     			FileReader in = new FileReader(new File(fileName));
@@ -97,14 +97,14 @@ public class PerformanceAnalysis
         			MultisetTester.processOperations(inReader, searchOutWriter, implementType);
         			endTime = System.nanoTime();
         			
+        			sum += (endTime - startTime);
         			timeElapsed = (endTime - startTime) / Math.pow(10, 9);
                     System.out.println("Time elapsed (secs): " + timeElapsed);
-                    sum += timeElapsed;
         			curExp++;
     			}
     			
     			// calculate the average
-    			double average = (double)sum / EXP_NUMBER;
+    			double average = (sum / EXP_NUMBER ) / Math.pow(10, 9);
     			System.out.println("Average time performance (secs): " + average);
     		} 
     		catch (IOException e) {
