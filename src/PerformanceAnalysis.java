@@ -10,6 +10,7 @@ import java.util.*;
 public class PerformanceAnalysis
 {
     protected static final String progName = "PerformanceAnalysis";
+    protected static final int EXP_NUMBER = 10;
 
     /** Different modes that program can run. */
     /*public enum Mode {
@@ -78,28 +79,38 @@ public class PerformanceAnalysis
             // construct in and output streams/writers/readers, then process each operation.
             long startTime = 0;
             long endTime = 0;
+            double timeElapsed = 0;
+            // record 10 times experiments
+            double sum = 0;
             
     		try {
     			FileReader in = new FileReader(new File(fileName));
     		    BufferedReader inReader = new BufferedReader(in);
     			PrintWriter searchOutWriter = new PrintWriter(System.out, true);
     			
-    			//test 
-    			//String line = inReader.readLine();
-    			startTime = System.nanoTime();
-    			// do the experiment (depends on text file)
-    			// process the operations
-    			MultisetTester.processOperations(inReader, searchOutWriter, implementType);
+    			int curExp = 0;
+    			while (curExp < EXP_NUMBER)
+    			{
+    				startTime = System.nanoTime();
+        			// do the experiment (depends on text file)
+        			// process the operations
+        			MultisetTester.processOperations(inReader, searchOutWriter, implementType);
+        			endTime = System.nanoTime();
+        			
+        			timeElapsed = (endTime - startTime) / Math.pow(10, 9);
+                    System.out.println("Time elapsed (secs): " + timeElapsed);
+                    sum += timeElapsed;
+        			curExp++;
+    			}
     			
-    			endTime = System.nanoTime();
-    		} catch (IOException e) {
+    			// calculate the average
+    			double average = (double)sum / EXP_NUMBER;
+    			System.out.println("Average time performance (secs): " + average);
+    		} 
+    		catch (IOException e) {
     			System.err.println(e.getMessage());
     		}
             
-
-            
-            double timeElapsed = (endTime - startTime) / Math.pow(10, 9);
-            System.out.println("Time elapsed (secs): " + timeElapsed);
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
