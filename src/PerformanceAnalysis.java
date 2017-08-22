@@ -99,13 +99,13 @@ public class PerformanceAnalysis
         			
         			sum += (endTime - startTime);
         			timeElapsed = (endTime - startTime) / Math.pow(10, 9);
-                    System.out.println("Time elapsed (secs): " + timeElapsed);
+                    System.out.printf("Time elapsed (secs): %.10f\n", timeElapsed);
         			curExp++;
     			}
     			
     			// calculate the average
     			double average = (sum / EXP_NUMBER ) / Math.pow(10, 9);
-    			System.out.println("Average time performance (secs): " + average);
+    			System.out.printf("Average time performance (secs): %.10f\n", average);
     		} 
     		catch (IOException e) {
     			System.err.println(e.getMessage());
