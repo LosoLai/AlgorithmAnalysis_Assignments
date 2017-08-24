@@ -24,7 +24,7 @@ public class PerformanceAnalysis
      * @param progName Program name.
      */
     protected static void printUsage(String progName) {
-      	System.err.println("USAGE: " + progName + " [data stracture] [input file]");
+      	System.err.println("USAGE: " + progName + " [data structure] [input file]");
       	System.err.println("  data structure [linkedlist, sortedlinkedlist, bst, hash]");
       	System.err.println("EXAMPLE: " + progName + " hash random.txt");
     } // end of printUsage()
