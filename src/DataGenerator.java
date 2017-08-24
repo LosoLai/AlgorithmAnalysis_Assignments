@@ -125,7 +125,7 @@ public class DataGenerator {
 	 *            proportion of that command in return set. The three values
 	 *            should add up to 1
 	 */
-	public static String[] randomAROS(int length, int[] propAROS) {
+	public static String[] randomAROS(int length, double[] propAROS) {
 		Random rand = new Random(System.currentTimeMillis());
 		String[] array = new String[length];
 
@@ -147,11 +147,11 @@ public class DataGenerator {
 		switch (samplingType) {
 		// sampling with replacement
 		case "with":
-			samples = sampleWithReplacement(sampleSize, 0, list.size()-1);
+			samples = sampleWithReplacement(sampleSize, 0, list.size() - 1);
 			break;
 		// sampling without replacement
 		case "without":
-			samples = sampleWithOutReplacement(sampleSize, 0, list.size()-1);
+			samples = sampleWithOutReplacement(sampleSize, 0, list.size() - 1);
 			break;
 		default:
 			System.err.println(samplingType + " is an unknown sampling type.");
@@ -178,18 +178,22 @@ public class DataGenerator {
 		}
 	}
 
-	public static void writeDataFile(ArrayList<String> samples, String[] commands, String outFilename) {
+	public static void writeDataFile(ArrayList<String> pool, ArrayList<String> samples, String[] commands,
+			String outFilename) {
 		try {
 			PrintWriter outFile = new PrintWriter(outFilename);
 
-			if (samples.size() != commands.length) {
+			if (samples.size() + pool.size() != commands.length) {
 				outFile.close();
 				System.err.println("Sample size does not match length of command array.");
 				System.exit(0);
 			}
 
+			for (int i = 0; i < pool.size(); i++) {
+				outFile.println(commands[i] + " " + pool.get(i));
+			}
 			for (int i = 0; i < samples.size(); i++) {
-				outFile.println(commands[i] + " " + samples.get(i));
+				outFile.println(commands[i + pool.size()] + " " + samples.get(i));
 			}
 
 			// outFile.println("P");
@@ -204,15 +208,15 @@ public class DataGenerator {
 	public static void createStartingDataSets(int poolSize, int finalSize, String outFilename) {
 		ArrayList<String> pool = generateSamples(words, "without", poolSize);
 		ArrayList<String> samples = generateSamples(pool, "with", finalSize);
-		String[] commands = allA(finalSize);
-		writeDataFile(samples, commands, outFilename);
+		String[] commands = allA(finalSize + poolSize);
+		writeDataFile(pool, samples, commands, outFilename);
 	}
 
-	public static void createTestingSets(int poolSize, int finalSize, int[] propAROS, String outFilename) {
+	public static void createTestingSets(int poolSize, int finalSize, double[] propAROS, String outFilename) {
 		ArrayList<String> pool = generateSamples(words, "without", poolSize);
 		ArrayList<String> samples = generateSamples(pool, "with", finalSize);
-		String[] commands = randomAROS(finalSize, propAROS);
-		writeDataFile(samples, commands, outFilename);
+		String[] commands = randomAROS(finalSize + poolSize, propAROS);
+		writeDataFile(pool, samples, commands, outFilename);
 	}
 
 	/*
@@ -221,8 +225,9 @@ public class DataGenerator {
 	 * data structure
 	 */
 	public static void main(String[] args) {
-		int poolSize = 1000;
-		int finalSize = 3000;
+		int poolSize = 1000; // potential number of distinct nodes in the
+								// structure
+		int finalSize = 4000; // gives some repetition
 		String fileStub = "1000nodeinput";
 		int numTrials = 10;
 		mRandGen = new Random(System.currentTimeMillis());
@@ -230,13 +235,17 @@ public class DataGenerator {
 
 		// create data files for initial data structures
 		for (int i = 0; i < numTrials; i++) {
-			String fileName = fileStub + Integer.toString(i) + ".txt";
+			String fileName = fileStub + Integer.toString(i + 1) + ".txt";
 			createStartingDataSets(poolSize, finalSize, fileName);
 		}
 
 		// create a testing file
-		int[] propAROS = { 50, 50, 0 };
-		createTestingSets(poolSize, finalSize, propAROS, "50A50RTest.txt");
+		double[][] props = { { 0.5, 0.5, 0 }, { 0, 1, 0 }, { 1, 0, 0 } };
+
+		// double[] propAROS = { 0.5, 0.5, 0 };
+		for (int i = 0; i < props.length; i++) {
+			createTestingSets(poolSize, finalSize, props[i], "Test" + Integer.toString(i + 1) + ".txt");
+		}
 	}
 
 	/**
