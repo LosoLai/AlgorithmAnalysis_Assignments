@@ -224,7 +224,7 @@ public class DataGenerator {
 	public static void createTestingSets(ArrayList<String> samples, int finalSize, int extras, double[] propAROS, String outFilename) {
 		ArrayList<String> tester = new ArrayList<>();
 		tester.addAll(samples);
-		tester.addAll(generateSamples(words, "without", extras));
+		//tester.addAll(generateSamples(words, "without", extras));
 		tester.addAll(generateSamples(tester, "with", finalSize - tester.size()));
 		String[] commands = randomAROS(tester.size(), propAROS);
 		Collections.shuffle(tester);
@@ -232,15 +232,10 @@ public class DataGenerator {
 		System.out.println("Tester size: " + tester.size());
 	}
 
-	/*
-	 * Usage: args[0] is the number of files to generate args[1] is the filename
-	 * stub. args[2] is the number of nodes args[3] is the final size of the
-	 * data structure
-	 */
 	public static void main(String[] args) {
-		int poolSize = 1000; // potential number of distinct nodes in the
+		int poolSize = 1000; // guaranteed number of distinct nodes in the
 								// structure
-		int finalSize = 5000; // gives some repetition
+		int finalSize = 5000; // actual final size of all files
 		int extras = 250; // extra unseen words for the testing files
 		String fileStub = "1000nodeinput";
 		int numTrials = 1;
@@ -262,6 +257,7 @@ public class DataGenerator {
 		for (int i = 0; i < props.length; i++) {
 			createTestingSets(allSamples.get(0),finalSize, extras, props[i],
 					"Test" + Integer.toString(i + 1) 
+					+ "_" + Integer.toString(finalSize)
 					+ "_A_" + Double.toString(props[i][0]) 
 					+ "_RO_"	+ Double.toString(props[i][1]) 
 					+ "_S_" + Double.toString(props[i][2]) + ".txt");
