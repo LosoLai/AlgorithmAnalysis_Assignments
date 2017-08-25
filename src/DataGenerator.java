@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -125,7 +126,7 @@ public class DataGenerator {
 	 *            proportion of that command in return set. The three values
 	 *            should add up to 1
 	 */
-	public static String[] randomAROS(int length, int[] propAROS) {
+	public static String[] randomAROS(int length, double[] propAROS) {
 		Random rand = new Random(System.currentTimeMillis());
 		String[] array = new String[length];
 
@@ -147,11 +148,11 @@ public class DataGenerator {
 		switch (samplingType) {
 		// sampling with replacement
 		case "with":
-			samples = sampleWithReplacement(sampleSize, 0, list.size()-1);
+			samples = sampleWithReplacement(sampleSize, 0, list.size() - 1);
 			break;
 		// sampling without replacement
 		case "without":
-			samples = sampleWithOutReplacement(sampleSize, 0, list.size()-1);
+			samples = sampleWithOutReplacement(sampleSize, 0, list.size() - 1);
 			break;
 		default:
 			System.err.println(samplingType + " is an unknown sampling type.");
@@ -201,18 +202,34 @@ public class DataGenerator {
 
 	}
 
-	public static void createStartingDataSets(int poolSize, int finalSize, String outFilename) {
-		ArrayList<String> pool = generateSamples(words, "without", poolSize);
-		ArrayList<String> samples = generateSamples(pool, "with", finalSize);
-		String[] commands = allA(finalSize);
+	public static ArrayList<String> createStartingDataSets(int poolSize, int finalSize,int extras, String outFilename) {
+		ArrayList<String> samples = generateSamples(words, "without", poolSize+extras);
+		ArrayList<String> originals = new ArrayList<>();
+		originals.addAll(samples);
+		for (int i = 0; i < extras; i++) {
+			samples.remove(0); //takes out all the extras
+		}
+		samples.addAll(generateSamples(samples, "with", finalSize-poolSize));
+		String[] commands = allA(samples.size());
+
 		writeDataFile(samples, commands, outFilename);
+		Collections.sort(samples);
+		writeDataFile(samples, commands, "sorted" + outFilename);
+		Collections.reverse(samples);
+		writeDataFile(samples, commands, "reverse" + outFilename);
+		System.out.println("Sample size: " + samples.size());
+		return originals;
 	}
 
-	public static void createTestingSets(int poolSize, int finalSize, int[] propAROS, String outFilename) {
-		ArrayList<String> pool = generateSamples(words, "without", poolSize);
-		ArrayList<String> samples = generateSamples(pool, "with", finalSize);
-		String[] commands = randomAROS(finalSize, propAROS);
-		writeDataFile(samples, commands, outFilename);
+	public static void createTestingSets(ArrayList<String> samples, int finalSize, int extras, double[] propAROS, String outFilename) {
+		ArrayList<String> tester = new ArrayList<>();
+		tester.addAll(samples);
+		tester.addAll(generateSamples(words, "without", extras));
+		tester.addAll(generateSamples(tester, "with", finalSize - tester.size()));
+		String[] commands = randomAROS(tester.size(), propAROS);
+		Collections.shuffle(tester);
+		writeDataFile(tester, commands, outFilename);
+		System.out.println("Tester size: " + tester.size());
 	}
 
 	/*
@@ -221,22 +238,34 @@ public class DataGenerator {
 	 * data structure
 	 */
 	public static void main(String[] args) {
-		int poolSize = 1000;
-		int finalSize = 3000;
+		int poolSize = 1000; // potential number of distinct nodes in the
+								// structure
+		int finalSize = 5000; // gives some repetition
+		int extras = 250; // extra unseen words for the testing files
 		String fileStub = "1000nodeinput";
-		int numTrials = 10;
+		int numTrials = 1;
 		mRandGen = new Random(System.currentTimeMillis());
 		readWordList();
+		ArrayList<ArrayList<String>> allSamples = new ArrayList<ArrayList<String>>();
 
 		// create data files for initial data structures
 		for (int i = 0; i < numTrials; i++) {
-			String fileName = fileStub + Integer.toString(i) + ".txt";
-			createStartingDataSets(poolSize, finalSize, fileName);
+			String fileName = fileStub + Integer.toString(i + 1) + ".txt";
+			allSamples.add(createStartingDataSets(poolSize, finalSize, extras, fileName));
 		}
 
 		// create a testing file
-		int[] propAROS = { 50, 50, 0 };
-		createTestingSets(poolSize, finalSize, propAROS, "50A50RTest.txt");
+		double[][] props = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0.5, 0, 0.5 }, { 0.5, 0.5, 0 }, { 0, 0.5, 0.5 },
+				{ 0.75, 0.25, 0 },  {.25,.75,0}, {.375,.375,.25}, {.125,.125,.75},{.25,.25,.5}};
+
+		// double[] propAROS = { 0.5, 0.5, 0 };
+		for (int i = 0; i < props.length; i++) {
+			createTestingSets(allSamples.get(0),finalSize, extras, props[i],
+					"Test" + Integer.toString(i + 1) 
+					+ "_A_" + Double.toString(props[i][0]) 
+					+ "_RO_"	+ Double.toString(props[i][1]) 
+					+ "_S_" + Double.toString(props[i][2]) + ".txt");
+		}
 	}
 
 	/**
