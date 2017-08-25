@@ -14,41 +14,58 @@ public class DataGenerator {
 	protected static final String progName = "IntegerGenerator";
 	private static final String wordFile = "words_alpha.txt";
 
-	/** Start of integer range to generate values from. */
-	// protected int mStartOfRange;
-	/** End of integer range to generate values from. */
-	// protected int mEndOfRange;
 	/** Random generator to use. */
 	static Random mRandGen;
 
 	private static ArrayList<String> words = new ArrayList<>();
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param startOfRange
-	 *            Start of integer range to generate values.
-	 * @param endOfRange
-	 *            End of integer range to generate values.
-	 * @throws IllegalArgumentException
-	 *             If range of integers is inappropriate
-	 */
-	// public DataGenerator(int startOfRange, int endOfRange) throws
-	// IllegalArgumentException {
-	// if (startOfRange < 0 || endOfRange < 0 || startOfRange > endOfRange) {
-	// throw new IllegalArgumentException("startOfRange or endOfRange is
-	// invalid.");
-	// }
-	// mStartOfRange = startOfRange;
-	// mEndOfRange = endOfRange;
-	// // use current time as seed
-	// mRandGen = new Random(System.currentTimeMillis());
-	// } // end of DataGenerator()
-
 	public DataGenerator() {
 		mRandGen = new Random(System.currentTimeMillis());
 		readWordList();
 	}
+	
+	public static void main(String[] args) {
+		int poolSize = 10000; // guaranteed number of distinct nodes in the
+								// structure
+		int finalSize = 50000; // actual final size of all files
+		int extras = 2500; // number of extra unseen words for the testing files
+		String fileStub = "10000nodeinput"; // name for all initial data files
+		int numTrials = 1;// number of sets of data sets to create
+		mRandGen = new Random(System.currentTimeMillis()); // Pick any seed to
+															// get the same
+															// output each time
+		readWordList(); // grab the dictionary from the file
+
+		// create data files for initial data structures
+		ArrayList<ArrayList<String>> allSamples = new ArrayList<ArrayList<String>>();
+		for (int i = 0; i < numTrials; i++) {
+			String fileName = fileStub + Integer.toString(i + 1) + ".txt";
+			allSamples.add(createStartingDataSets(poolSize, finalSize, extras, fileName));
+		}
+
+		// create a testing file with various proportions of add, remove one and
+		// search in that order
+		double[][] props = { 
+				{ 1, 0, 0 }, 
+				{ 0, 1, 0 }, 
+				{ 0, 0, 1 }, 
+				{ 0.5, 0, 0.5 }, 
+				{ 0.5, 0.5, 0 }, 
+				{ 0, 0.5, 0.5 },
+				{ 0.75, 0.25, 0 }, 
+				{ .25, .75, 0 }, 
+				{ .375, .375, .25 }, 
+				{ .125, .125, .75 }, 
+				{ .25, .25, .5 } };
+
+		for (int i = 0; i < props.length; i++) {
+			createTestingSets(allSamples.get(0), finalSize, extras, props[i],
+					"Test" + Integer.toString(i + 1) + "_" + Integer.toString(finalSize) + "_A_"
+							+ Double.toString(props[i][0]) + "_RO_" + Double.toString(props[i][1]) + "_S_"
+							+ Double.toString(props[i][2]) + ".txt");
+		}
+	}	// end of main()
+	
 
 	/**
 	 * Generate one sample, using sampling with replacement.
@@ -199,17 +216,17 @@ public class DataGenerator {
 			System.err.println("cannot find words_alpha.txt");
 			System.exit(0);
 		}
-
 	}
 
-	public static ArrayList<String> createStartingDataSets(int poolSize, int finalSize,int extras, String outFilename) {
-		ArrayList<String> samples = generateSamples(words, "without", poolSize+extras);
+	public static ArrayList<String> createStartingDataSets(int poolSize, int finalSize, int extras,
+			String outFilename) {
+		ArrayList<String> samples = generateSamples(words, "without", poolSize + extras);
 		ArrayList<String> originals = new ArrayList<>();
 		originals.addAll(samples);
 		for (int i = 0; i < extras; i++) {
-			samples.remove(0); //takes out all the extras
+			samples.remove(0); // takes out all the extras
 		}
-		samples.addAll(generateSamples(samples, "with", finalSize-poolSize));
+		samples.addAll(generateSamples(samples, "with", finalSize - poolSize));
 		String[] commands = allA(samples.size());
 
 		writeDataFile(samples, commands, outFilename);
@@ -221,10 +238,11 @@ public class DataGenerator {
 		return originals;
 	}
 
-	public static void createTestingSets(ArrayList<String> samples, int finalSize, int extras, double[] propAROS, String outFilename) {
+	public static void createTestingSets(ArrayList<String> samples, int finalSize, int extras, double[] propAROS,
+			String outFilename) {
 		ArrayList<String> tester = new ArrayList<>();
 		tester.addAll(samples);
-		//tester.addAll(generateSamples(words, "without", extras));
+		// tester.addAll(generateSamples(words, "without", extras));
 		tester.addAll(generateSamples(tester, "with", finalSize - tester.size()));
 		String[] commands = randomAROS(tester.size(), propAROS);
 		Collections.shuffle(tester);
@@ -232,92 +250,5 @@ public class DataGenerator {
 		System.out.println("Tester size: " + tester.size());
 	}
 
-	public static void main(String[] args) {
-		int poolSize = 1000; // guaranteed number of distinct nodes in the
-								// structure
-		int finalSize = 5000; // actual final size of all files
-		int extras = 250; // extra unseen words for the testing files
-		String fileStub = "1000nodeinput";
-		int numTrials = 1;
-		mRandGen = new Random(System.currentTimeMillis());
-		readWordList();
-		ArrayList<ArrayList<String>> allSamples = new ArrayList<ArrayList<String>>();
 
-		// create data files for initial data structures
-		for (int i = 0; i < numTrials; i++) {
-			String fileName = fileStub + Integer.toString(i + 1) + ".txt";
-			allSamples.add(createStartingDataSets(poolSize, finalSize, extras, fileName));
-		}
-
-		// create a testing file
-		double[][] props = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0.5, 0, 0.5 }, { 0.5, 0.5, 0 }, { 0, 0.5, 0.5 },
-				{ 0.75, 0.25, 0 },  {.25,.75,0}, {.375,.375,.25}, {.125,.125,.75},{.25,.25,.5}};
-
-		// double[] propAROS = { 0.5, 0.5, 0 };
-		for (int i = 0; i < props.length; i++) {
-			createTestingSets(allSamples.get(0),finalSize, extras, props[i],
-					"Test" + Integer.toString(i + 1) 
-					+ "_" + Integer.toString(finalSize)
-					+ "_A_" + Double.toString(props[i][0]) 
-					+ "_RO_"	+ Double.toString(props[i][1]) 
-					+ "_S_" + Double.toString(props[i][2]) + ".txt");
-		}
-	}
-
-	/**
-	 * Main method.
-	 */
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * try { // integer range int startOfRange = Integer.parseInt(args[0]); int
-	 * endOfRange = Integer.parseInt(args[1]);
-	 * 
-	 * // number of values to sample int sampleSize = Integer.parseInt(args[2]);
-	 * 
-	 * // type of sampling String samplingType = args[3]; String outFilename =
-	 * args[4]; String text = args.length > 5 ? args[5] : "int";
-	 * 
-	 * PrintWriter outFile = new PrintWriter(outFilename);
-	 * 
-	 * DataGenerator gen = new DataGenerator(startOfRange, endOfRange);
-	 * 
-	 * int[] samples = null; switch (samplingType) { // sampling with
-	 * replacement case "with": samples = gen.sampleWithReplacement(sampleSize);
-	 * break; // sampling without replacement case "without": samples =
-	 * gen.sampleWithOutReplacement(sampleSize); break; default:
-	 * System.err.println(samplingType + " is an unknown sampling type.");
-	 * usage(); }
-	 * 
-	 * if (text.equals("text")) { try { Scanner in = new Scanner(new
-	 * File(wordFile));
-	 * 
-	 * ArrayList<String> words = new ArrayList<>();
-	 * 
-	 * while (in.hasNextLine()) { words.add(in.nextLine()); }
-	 * 
-	 * System.out.println("Size of Words: " + words.size());
-	 * 
-	 * in.close();
-	 * 
-	 * for (int i = 0; i < samples.length; i++) { outFile.println("A " +
-	 * words.get(samples[i])); }
-	 * 
-	 * // outFile.println("P");
-	 * 
-	 * } catch (FileNotFoundException e) {
-	 * System.err.println("cannot find words_alpha.txt"); System.exit(0); }
-	 * 
-	 * } else { // print integer samples to file if (samples != null) { for (int
-	 * i = 0; i < samples.length; i++) {
-	 * outFile.println(Integer.toString(samples[i])); } } }
-	 * 
-	 * outFile.close();
-	 * 
-	 * } catch (Exception e) { e.printStackTrace();
-	 * System.err.println(e.getMessage()); usage(); }
-	 * 
-	 * }
-	 */
-	// end of main()
 } // end of class DataGenerator
