@@ -99,55 +99,62 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
      * @param item Value to remove.
      */
 	public void removeOne(T item) {
-		Node<T> currNode = mHead;
+		if(mHead != null)
+		{
+			Node<T> currNode = mHead;
 
-		// check if value is head node
-        if (currNode.getValue().compareTo(item) == 0) {
-            // check if length of 1
-            if (mLength == 1) {
-                mHead = mTail= null;
-            }
-            else {
-            	if(currNode.getFound() == 1)
-            	{
-            		mHead = currNode.getNext();
-            		mHead.setPrev(null);
-            		currNode = null;
-            	}
-            	else
-            		currNode.decreaseFound();
-            }
-            
-            mLength--;
-        }
-        // search for value in rest of list
-        else {
-            currNode = currNode.getNext();
+			// check if value is head node
+	        if (currNode.getValue().compareTo(item) == 0) {
+	            // check if length of 1
+	            if (mLength == 1) {
+	                mHead = mTail= null;
+	            }
+	            else {
+	            	if(currNode.getFound() == 1)
+	            	{
+	            		mHead = currNode.getNext();
+	            		mHead.setPrev(null);
+	            		currNode = null;
+	            	}
+	            	else
+	            		currNode.decreaseFound();
+	            }
+	            
+	            mLength--;
+	        }
+	        // search for value in rest of list
+	        else {
+	            currNode = currNode.getNext();
 
-            while (currNode != null) {
-                if (currNode.getValue().compareTo(item) == 0) {
-                	if(currNode.getFound() == 1)
-                	{
-                		Node prevNode = currNode.getPrev();
-                        prevNode.setNext(currNode.getNext());
-                        // check if tail
-                        if (currNode.getNext() != null) {
-                        	currNode.getNext().setPrev(prevNode);
-                        }
-                        else {
-                        	mTail = prevNode;
-                        }
-                        currNode = null;
-                	}
-                	else
-                		currNode.decreaseFound();
-                    mLength--;
-                    break;
-                }
-                else
-                	currNode = currNode.getNext();
-            }	
-        }
+	            while (currNode != null) {
+	                if (currNode.getValue().compareTo(item) == 0) {
+	                	// check the number 
+	                	if(currNode.getFound() <= 0)
+	                		break;
+	                	
+	                	if(currNode.getFound() == 1)
+	                	{
+	                		Node prevNode = currNode.getPrev();
+	                        prevNode.setNext(currNode.getNext());
+	                        // check if tail
+	                        if (currNode.getNext() != null) {
+	                        	currNode.getNext().setPrev(prevNode);
+	                        }
+	                        else {
+	                        	mTail = prevNode;
+	                        }
+	                        currNode = null;
+	                	}
+	                	else
+	                		currNode.decreaseFound();
+	                    mLength--;
+	                    break;
+	                }
+	                else
+	                	currNode = currNode.getNext();
+	            }	
+	        }
+		}
 	} // end of removeOne()
 	
 	
