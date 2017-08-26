@@ -75,7 +75,7 @@ public class PerformanceAnalysis
             //args[2] = operation size
             String title = "FixData" + args[1] + "_OpSize" + args[2];
             String fileName = null;
-            String recordFileName = dataUsed + "_" + title;
+            String recordFileName = dataUsed + "_" + title + ".txt";
             String[] dataOrder = {"random", "order", "reverse"}; 
             int testingCases = 11;
             
