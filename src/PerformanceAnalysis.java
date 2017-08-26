@@ -39,19 +39,14 @@ public class PerformanceAnalysis
     public static void main(String[] args) {
         try {
             // not enough arguments
-            if (args.length != 2) {
+            if (args.length != 3) {
                 printUsage(progName);
                 System.exit(1);
             }
             
             // data structure to be used
             String dataUsed = args[0];
-            // input file to be processed
-            String fileName = null;
-    		if (args.length == 2) {
-    			fileName = args[1];
-    		}
-
+            
             // figure out which data structure we are using    		
             Multiset<String> implementType = null;
             switch(dataUsed) {
@@ -76,6 +71,14 @@ public class PerformanceAnalysis
                     System.exit(1);
             }
             
+            //args[1] = fix data size
+            //args[2] = operation size
+            String title = "FixData" + args[1] + "_OpSize" + args[2];
+            String fileName = null;
+            String recordFileName = dataUsed + "_" + title;
+            String[] dataOrder = {"random", "order", "reverse"}; 
+            int testingCases = 11;
+            
             // construct in and output streams/writers/readers, then process each operation.
             long startTime = 0;
             long endTime = 0;
@@ -83,34 +86,47 @@ public class PerformanceAnalysis
             // record 10 times experiments
             long sum = 0;
             
-    		try {
-    			FileReader in = new FileReader(new File(fileName));
-    		    BufferedReader inReader = new BufferedReader(in);
-    			PrintWriter searchOutWriter = new PrintWriter(System.out, true);
-    			
-    			int curExp = 0;
-    			while (curExp < EXP_NUMBER)
-    			{
-    				startTime = System.nanoTime();
-        			// do the experiment (depends on text file)
-        			// process the operations
-        			MultisetTester.processOperations(inReader, searchOutWriter, implementType);
-        			endTime = System.nanoTime();
-        			
-        			sum += (endTime - startTime);
-        			timeElapsed = (endTime - startTime) / Math.pow(10, 9);
-                    System.out.printf("Time elapsed (secs): %.10f\n", timeElapsed);
-        			curExp++;
-    			}
-    			
-    			// calculate the average
-    			double average = (sum / EXP_NUMBER ) / Math.pow(10, 9);
-    			System.out.printf("Average time performance (secs): %.10f\n", average);
-    		} 
-    		catch (IOException e) {
-    			System.err.println(e.getMessage());
-    		}
-            
+            PrintWriter searchOutWriter = new PrintWriter(recordFileName);
+            for(int i=0 ; i<dataOrder.length ; i++)
+            {
+            	for(int j=1 ; j<=testingCases ; j++)
+                {
+            		fileName = title + "_Test" + Integer.toString(j) + "_" + dataOrder[i] + ".txt";
+            		
+            		try {
+            			FileReader in = new FileReader(new File(fileName));
+            		    BufferedReader inReader = new BufferedReader(in);
+            			//PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+            			
+            			int curExp = 0;
+            			while (curExp < EXP_NUMBER)
+            			{
+            				startTime = System.nanoTime();
+                			// do the experiment (depends on text file)
+                			// process the operations
+                			MultisetTester.processOperations(inReader, searchOutWriter, implementType);
+                			endTime = System.nanoTime();
+                			
+                			sum += (endTime - startTime);
+                			timeElapsed = (endTime - startTime) / Math.pow(10, 9);	
+                			searchOutWriter.println(String.format("Time elapsed (secs): %.10f\n", timeElapsed));
+                            System.out.printf("Time elapsed (secs): %.10f\n", timeElapsed);
+                			curExp++;
+            			}
+            			
+            			// calculate the average
+            			double average = (sum / EXP_NUMBER ) / Math.pow(10, 9);
+            			searchOutWriter.println("DataStructure:" + dataUsed + " Testing file: " + fileName);
+            			searchOutWriter.println(String.format("Average time performance (secs): %.10f\n", average));
+            			System.out.println("DataStructure:" + dataUsed + " Testing file: " + fileName);
+            			System.out.printf("Average time performance (secs): %.10f\n", average);
+            		} 
+            		catch (IOException e) {
+            			System.err.println(e.getMessage());
+            		}
+                }
+            }
+            searchOutWriter.close();
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
