@@ -101,7 +101,7 @@ public class PerformanceAnalysis
             			
             			int curExp = 0;
             			while (curExp < EXP_NUMBER)
-            			{            				            	            
+            			{            				
             				startTime = System.nanoTime();
                 			// do the experiment (depends on text file)
                 			// process the operations

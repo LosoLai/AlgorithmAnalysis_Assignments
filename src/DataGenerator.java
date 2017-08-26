@@ -25,9 +25,9 @@ public class DataGenerator {
 	}
 	
 	public static void main(String[] args) {
-		int poolSize = 1000; // guaranteed number of distinct nodes in the
+		int poolSize = Integer.parseInt(args[0]); // guaranteed number of distinct nodes in the
 								// structure
-		int finalSize = 5000; // actual final size of all files
+		int finalSize = Integer.parseInt(args[1]); // actual final size of all files
 		int extras = 2500; // number of extra unseen words for the testing files
 		String fileStub = "1000nodeinput"; // name for all initial data files
 		String[] dataOrder = {"random", "order", "reverse"};
