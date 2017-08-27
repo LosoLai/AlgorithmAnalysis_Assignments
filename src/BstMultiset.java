@@ -43,63 +43,70 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 	} // end of add()
 
 	public int search(T item) {
-		Node<T> currentNode = root;
-		boolean done = false;
-		int found = 0;
+		if (root == null) {
+			return 0;
+		} else {
+			Node<T> currentNode = root;
+			boolean done = false;
+			int found = 0;
 
-		while (!done) {
-			if (item.compareTo(currentNode.getValue()) == 0) {
-				found = currentNode.getCount();
-				done = true;
-			} else if (item.compareTo(currentNode.getValue()) < 0) {
-				if (currentNode.getLeftChild() == null) {
+			while (!done) {
+				if (item.compareTo(currentNode.getValue()) == 0) {
+					found = currentNode.getCount();
 					done = true;
-					found = 0;
-				} else {
-					currentNode = currentNode.getLeftChild();
-				}
-			} else if (item.compareTo(currentNode.getValue()) > 0) {
-				if (currentNode.getRightChild() == null) {
-					done = true;
-				} else {
-					currentNode = currentNode.getRightChild();
+				} else if (item.compareTo(currentNode.getValue()) < 0) {
+					if (currentNode.getLeftChild() == null) {
+						done = true;
+						found = 0;
+					} else {
+						currentNode = currentNode.getLeftChild();
+					}
+				} else if (item.compareTo(currentNode.getValue()) > 0) {
+					if (currentNode.getRightChild() == null) {
+						done = true;
+					} else {
+						currentNode = currentNode.getRightChild();
+					}
 				}
 			}
-		}
 
-		return found;
+			return found;
+		}
 	} // end of search()
 
 	public void removeOne(T item) {
-		Node<T> currentNode = root;
-		boolean done = false;
+		if (root != null) {
+			Node<T> currentNode = root;
+			boolean done = false;
 
-		while (!done) {
-			if (item.compareTo(currentNode.getValue()) == 0) {
-				int count = currentNode.removeLeaf();
-				if (count == 0) {
-					removeAll(item); // not a very efficient solution but is
-										// safest
-				}
-				done = true;
-			} else if (item.compareTo(currentNode.getValue()) < 0) {
-				if (currentNode.getLeftChild() == null) {
+			while (!done) {
+				if (item.compareTo(currentNode.getValue()) == 0) {
+					int count = currentNode.removeLeaf();
+					if (count == 0) {
+						removeAll(item); 
+					}
 					done = true;
-				} else {
-					currentNode = currentNode.getLeftChild();
-				}
-			} else if (item.compareTo(currentNode.getValue()) > 0) {
-				if (currentNode.getRightChild() == null) {
-					done = true;
-				} else {
-					currentNode = currentNode.getRightChild();
+				} else if (item.compareTo(currentNode.getValue()) < 0) {
+					if (currentNode.getLeftChild() == null) {
+						done = true;
+					} else {
+						currentNode = currentNode.getLeftChild();
+					}
+				} else if (item.compareTo(currentNode.getValue()) > 0) {
+					if (currentNode.getRightChild() == null) {
+						done = true;
+					} else {
+						currentNode = currentNode.getRightChild();
+					}
 				}
 			}
 		}
 	} // end of removeOne()
 
 	public void removeAll(T item) {
-		root = myDelete(root, item);
+		if (root != null) {
+			root = myDelete(root, item);
+		}
 	} // end of removeAll()
 
 	private Node<T> myDelete(Node<T> point, T item) {
@@ -134,7 +141,6 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 				Node<T> min = minNode(point.getRightChild());
 				point.setValue(min.getValue());
 				point.setCount(min.getCount());
-
 				// Delete the node
 				point.setRightChild(myDelete(point.getRightChild(), min.getValue()));
 			}
@@ -146,7 +152,6 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 		while (point.getLeftChild() != null) {
 			point = point.getLeftChild();
 		}
-
 		return point;
 	}
 
@@ -161,7 +166,11 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 	}
 
 	public void print(PrintStream out) {
-		travelPrint(root, out);
+		if (root != null) {
+			travelPrint(root, out);
+		} else {
+			out.println("Structure is empty");
+		}
 	} // end of print()
 
 	private void travelPrint(Node<T> top, PrintStream out) {
