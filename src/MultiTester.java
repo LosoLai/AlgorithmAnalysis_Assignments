@@ -124,33 +124,71 @@ public class MultiTester {
 		numTrials = 10;
 		// The files with all add commands to set up the data structures
 		String[] startFileNames = new String[3];
-		startFileNames[0] = "10000nodeinput1.txt";
-		startFileNames[1] = "reverse10000nodeinput1.txt";
-		startFileNames[2] = "sorted10000nodeinput1.txt";
+		startFileNames[0] = "random1000nodeinput.txt";
+		startFileNames[1] = "reverse1000nodeinput.txt";
+		startFileNames[2] = "sorted1000nodeinput.txt";
 
 		// The files with the lists of commands
-		String[] testFileNames = new String[11];
-		testFileNames[0] = "Test1_50000_A_1.0_RO_0.0_S_0.0.txt";
-		testFileNames[1] = "Test2_50000_A_0.0_RO_1.0_S_0.0.txt";
-		testFileNames[2] = "Test3_50000_A_0.0_RO_0.0_S_1.0.txt";
-		testFileNames[3] = "Test4_50000_A_0.5_RO_0.0_S_0.5.txt";
-		testFileNames[4] = "Test5_50000_A_0.5_RO_0.5_S_0.0.txt";
-		testFileNames[5] = "Test6_50000_A_0.0_RO_0.5_S_0.5.txt";
-		testFileNames[6] = "Test7_50000_A_0.75_RO_0.25_S_0.0.txt";
-		testFileNames[7] = "Test8_50000_A_0.25_RO_0.75_S_0.0.txt";
-		testFileNames[8] = "Test9_50000_A_0.375_RO_0.375_S_0.25.txt";
-		testFileNames[9] = "Test10_50000_A_0.125_RO_0.125_S_0.75.txt";
-		testFileNames[10] = "Test11_50000_A_0.25_RO_0.25_S_0.5.txt";
+		String[] testFileNames = new String[33];
+		//Loso's Filenames
+		testFileNames[0] = "FixData1000_OpSize5000000_Test1_order.txt";
+		testFileNames[1] = "FixData1000_OpSize5000000_Test1_random.txt";
+		testFileNames[2] = "FixData1000_OpSize5000000_Test1_reverse.txt";
+		testFileNames[3] = "FixData1000_OpSize5000000_Test2_order.txt";
+		testFileNames[4] = "FixData1000_OpSize5000000_Test2_random.txt";
+		testFileNames[5] = "FixData1000_OpSize5000000_Test2_reverse.txt";
+		testFileNames[6] = "FixData1000_OpSize5000000_Test3_order.txt";
+		testFileNames[7] = "FixData1000_OpSize5000000_Test3_random.txt";
+		testFileNames[8] = "FixData1000_OpSize5000000_Test3_reverse.txt";
+		testFileNames[9] = "FixData1000_OpSize5000000_Test4_order.txt";
+		testFileNames[10] = "FixData1000_OpSize5000000_Test4_random.txt";
+		testFileNames[11] = "FixData1000_OpSize5000000_Test4_reverse.txt";
+		testFileNames[12] = "FixData1000_OpSize5000000_Test5_order.txt";
+		testFileNames[13] = "FixData1000_OpSize5000000_Test5_random.txt";
+		testFileNames[14] = "FixData1000_OpSize5000000_Test5_reverse.txt";
+		testFileNames[15] = "FixData1000_OpSize5000000_Test6_order.txt";
+		testFileNames[16] = "FixData1000_OpSize5000000_Test6_random.txt";
+		testFileNames[17] = "FixData1000_OpSize5000000_Test6_reverse.txt";
+		testFileNames[18] = "FixData1000_OpSize5000000_Test7_order.txt";
+		testFileNames[19] = "FixData1000_OpSize5000000_Test7_random.txt";
+		testFileNames[20] = "FixData1000_OpSize5000000_Test7_reverse.txt";
+		testFileNames[21] = "FixData1000_OpSize5000000_Test8_order.txt";
+		testFileNames[22] = "FixData1000_OpSize5000000_Test8_random.txt";
+		testFileNames[23] = "FixData1000_OpSize5000000_Test8_reverse.txt";
+		testFileNames[24] = "FixData1000_OpSize5000000_Test9_order.txt";
+		testFileNames[25] = "FixData1000_OpSize5000000_Test9_random.txt";
+		testFileNames[26] = "FixData1000_OpSize5000000_Test9_reverse.txt";
+		testFileNames[27] = "FixData1000_OpSize5000000_Test10_order.txt";
+		testFileNames[28] = "FixData1000_OpSize5000000_Test10_random.txt";
+		testFileNames[29] = "FixData1000_OpSize5000000_Test10_reverse.txt";
+		testFileNames[30] = "FixData1000_OpSize5000000_Test11_order.txt";
+		testFileNames[31] = "FixData1000_OpSize5000000_Test11_random.txt";
+		testFileNames[32] = "FixData1000_OpSize5000000_Test11_reverse.txt";
+	
+		
+		
+		
+		//Lettisia's filenames
+//		testFileNames[0] = "Test1_5000_A_1.0_RO_0.0_S_0.0.txt";
+//		testFileNames[1] = "Test2_5000_A_0.0_RO_1.0_S_0.0.txt";
+//		testFileNames[2] = "Test3_5000_A_0.0_RO_0.0_S_1.0.txt";
+//		testFileNames[3] = "Test4_5000_A_0.5_RO_0.0_S_0.5.txt";
+//		testFileNames[4] = "Test5_5000_A_0.5_RO_0.5_S_0.0.txt";
+//		testFileNames[5] = "Test6_5000_A_0.0_RO_0.5_S_0.5.txt";
+//		testFileNames[6] = "Test7_5000_A_0.75_RO_0.25_S_0.0.txt";
+//		testFileNames[7] = "Test8_5000_A_0.25_RO_0.75_S_0.0.txt";
+//		testFileNames[8] = "Test9_5000_A_0.375_RO_0.375_S_0.25.txt";
+//		testFileNames[9] = "Test10_5000_A_0.125_RO_0.125_S_0.75.txt";
+//		testFileNames[10] = "Test11_5000_A_0.25_RO_0.25_S_0.5.txt";
 
 		HashMap<String, HashMap<String, HashMap<String, Double>>> table = new HashMap<>();
-		table.put(startFileNames[0], runTrials(startFileNames[0], testFileNames));
-		table.put(startFileNames[1], runTrials(startFileNames[1], testFileNames));
-		table.put(startFileNames[2], runTrials(startFileNames[2], testFileNames));
-		
-		
+		table.put(startFileNames[0], runTests(startFileNames[0], testFileNames));
+		table.put(startFileNames[1], runTests(startFileNames[1], testFileNames));
+		table.put(startFileNames[2], runTests(startFileNames[2], testFileNames));
+
 		// Run the tests and print the results to a file
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter("out_10000_node_50000_command.txt"), true);
+			PrintWriter out = new PrintWriter(new FileWriter("out_1000_node_5000000_command_losofiles.txt"), true);
 			Iterator<String> it = table.keySet().iterator();
 			while (it.hasNext()) {
 				String key = it.next();
@@ -190,8 +228,85 @@ public class MultiTester {
 
 	}
 
-	public static HashMap<String, HashMap<String, Double>> runTrials(String inFilename, String[] testFileNames) {
-		// Setup the multisets
+	// public static HashMap<String, HashMap<String, Double>> runTrials(String
+	// startFileName, String[] testFileNames) {
+	// // Setup the multisets
+	// // ArrayList<Multiset<String>> sets = new ArrayList<>();
+	// // sets.add(new LinkedListMultiset<String>());
+	// // sets.add(new HashMultiset<String>());
+	// // sets.add(new BstMultiset<String>());
+	// // sets.add(new BalTreeMultiset<String>());
+	// // sets.add(new SortedLinkedListMultiset<String>());
+	// //
+	// // for (Iterator<Multiset<String>> iterator = sets.iterator();
+	// // iterator.hasNext();) {
+	// // Multiset<String> multiset = (Multiset<String>) iterator.next();
+	// // try {
+	// // Scanner inReader = new Scanner(new File(startFileName));
+	// // processOperations(inReader, multiset);
+	// // inReader.close();
+	// // } catch (IOException e) {
+	// // e.printStackTrace();
+	// // }
+	// // }
+	//
+	// // Run tests
+	// HashMap<String, HashMap<String, HashMap<String, Double>>> table = new
+	// HashMap<>();
+	//
+	// // for (Iterator<Multiset<String>> iterator = sets.iterator();
+	// // iterator.hasNext();) {
+	// // Multiset<String> multiset = (Multiset<String>) iterator.next();
+	// // table.put(multiset.getClass().getSimpleName(),
+	// // runTests(testFileNames, multiset));
+	// // }
+	//
+	// // Create the table
+	//
+	// return table;
+	// }
+
+	public static HashMap<String, HashMap<String, Double>> runTests(String startFileName, String[] testFilenames) {
+		HashMap<String, HashMap<String, Double>> tableColumn = new HashMap<>();
+		for (int i = 0; i < testFilenames.length; i++) {
+			tableColumn.put(testFilenames[i], runManyTrials(startFileName, testFilenames[i]));
+		}
+		return tableColumn;
+	}
+
+	public static HashMap<String, Double> runManyTrials(String startFileName, String testFilename) {
+		HashMap<String, Double> average = new HashMap<>();
+
+		for (int i = 0; i < numTrials; i++) {
+			HashMap<String, Double> result = runOneTrial(startFileName, testFilename);
+			//System.out.println(result.values());
+			Iterator<String> it = result.keySet().iterator();
+			while (it.hasNext()) {
+				String key = (String) it.next();
+				if (average.get(key) == null) {
+					average.put(key, result.get(key));
+				} else {
+					average.put(key, average.get(key) + result.get(key));
+				}
+				
+			}
+			//System.out.println(average.values());
+		}
+
+		Iterator<String> it = average.keySet().iterator();
+		while (it.hasNext()) {
+			String key = (String) it.next();
+			average.put(key, average.get(key) / numTrials);
+		}
+		System.out.println("final" + average.values());
+		return average;
+	}
+
+	public static HashMap<String, Double> runOneTrial(String startFileName, String testFilename) {
+		long startTime = 0;
+		long endTime = 0;
+		HashMap<String, Double> result = new HashMap<>();
+
 		ArrayList<Multiset<String>> sets = new ArrayList<>();
 		sets.add(new LinkedListMultiset<String>());
 		sets.add(new HashMultiset<String>());
@@ -202,60 +317,30 @@ public class MultiTester {
 		for (Iterator<Multiset<String>> iterator = sets.iterator(); iterator.hasNext();) {
 			Multiset<String> multiset = (Multiset<String>) iterator.next();
 			try {
-				Scanner inReader = new Scanner(new File(inFilename));
+				Scanner inReader = new Scanner(new File(startFileName));
 				processOperations(inReader, multiset);
 				inReader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+			try {
+				Scanner inReader = new Scanner(new File(testFilename));
+				// process the operations
+				startTime = System.nanoTime();
+				processOperations(inReader, multiset);
+				endTime = System.nanoTime();
+				inReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			double timeElapsed = (endTime - startTime) / Math.pow(10, 9);
+			String className = multiset.getClass().getSimpleName();
+			System.out.println("Time elapsed (secs): " + timeElapsed + " " + testFilename + " " + startFileName + " " + className);
+			result.put(className, timeElapsed);
 		}
-
-		// Run tests
-		HashMap<String, HashMap<String, Double>> table = new HashMap<>();
-		for (Iterator<Multiset<String>> iterator = sets.iterator(); iterator.hasNext();) {
-			Multiset<String> multiset = (Multiset<String>) iterator.next();
-			table.put(multiset.getClass().getSimpleName(), runTests(testFileNames, multiset));
-		}
-
-		return table;
-	}
-
-	public static HashMap<String, Double> runTests(String[] inFilename, Multiset<String> multiset) {
-		HashMap<String, Double> tableColumn = new HashMap<>();
-		for (int i = 0; i < inFilename.length; i++) {
-			tableColumn.put(inFilename[i], runManyTrials(inFilename[i], multiset));
-		}
-		return tableColumn;
-	}
-
-	public static double runManyTrials(String inFilename, Multiset<String> multiset) {
-		double sum = 0;
-		for (int i = 0; i < numTrials; i++) {
-			sum += runOneTrial(inFilename, multiset);
-		}
-		return sum / numTrials;
-	}
-
-	public static double runOneTrial(String inFilename, Multiset<String> multiset) {
-		long startTime = 0;
-		long endTime = 0;
-
-		try {
-			Scanner inReader = new Scanner(new File(inFilename));
-
-			// process the operations
-			startTime = System.nanoTime();
-			processOperations(inReader, multiset);
-			endTime = System.nanoTime();
-			inReader.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		double timeElapsed = (endTime - startTime) / Math.pow(10, 9);
-		System.out.println("Time elapsed (secs): " + timeElapsed);
-		return timeElapsed;
+		return result;
 	}
 
 	/**
@@ -272,12 +357,12 @@ public class MultiTester {
 		String implementationType = args[0];
 
 		// String searchOutFilename = null;
-		String inFilename = null;
+		String startFileName = null;
 		if (args.length == 2) {
 			// searchOutFilename = args[1];
 		} else if (args.length == 3) {
 			// searchOutFilename = args[2];
-			inFilename = args[1];
+			startFileName = args[1];
 		}
 
 		// determine which implementation to test
@@ -311,7 +396,7 @@ public class MultiTester {
 		try {
 			// BufferedReader inReader = new BufferedReader(new
 			// InputStreamReader(System.in));
-			Scanner inReader = new Scanner(new File(inFilename));
+			Scanner inReader = new Scanner(new File(startFileName));
 			// PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
 			// if (searchOutFilename != null) {
