@@ -28,7 +28,7 @@ public class DataGeneratorLoso {
 
 	public static void main(String[] args) {
 		// guaranteed number of distinct nodes in the initial structure
-		int poolSize = 290000;
+		int poolSize = 100000;
 
 		// Size of initial structure after repetitions are added
 		int initialSize = poolSize*5;
