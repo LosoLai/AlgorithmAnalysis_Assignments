@@ -28,20 +28,20 @@ public class DataGeneratorLoso {
 
 	public static void main(String[] args) {
 		// guaranteed number of distinct nodes in the initial structure
-		int poolSize = 3000;
+		int poolSize = 290000;
 
 		// Size of initial structure after repetitions are added
-		int initialSize = 5000;
+		int initialSize = poolSize*5;
 
 		// final size of command lists
-		int finalSize = 500;
+		int finalSize = 50000;
 
 		// number of extra unseen words for the testing files
 		// poolSize /4 means 80% known and 20% unknown
-		int extras = poolSize / 4;
+		int extras = Math.round(poolSize / 4);
 
 		// name for all initial data files
-		String fileStub = "3000nodeinput";
+		String fileStub = "300000nodeinput";
 
 		String[] dataOrder = { "random", "order", "reverse" };
 
@@ -65,7 +65,7 @@ public class DataGeneratorLoso {
 			ArrayList<String> sample = allSamples.get(i);
 
 			for (int j = 0; j < props.length; j++) {
-				String testingCase = "FixData" + Integer.toString(poolSize / 100) + "_OpSize"
+				String testingCase = "FixData" + Integer.toString(poolSize) + "_OpSize"
 						+ Integer.toString(finalSize) + "_Test" + Integer.toString(j + 1) + "_" + dataOrder[i] + ".txt";
 				createTestingSets(sample, finalSize, props[j], testingCase);
 			}
@@ -226,10 +226,10 @@ public class DataGeneratorLoso {
 
 	public static void createStartingDataSets(ArrayList<ArrayList<String>> samplePool, int poolSize, int finalSize,
 			int extras, String outFilename) {
-		ArrayList<String> samples = generateSamples(words, "without", poolSize + extras);
+		ArrayList<String> samples = generateSamples(words, "without", Math.max(poolSize + extras, words.size()));
 		ArrayList<String> originals = new ArrayList<>();
 		originals.addAll(samples);
-		for (int i = 0; i < extras; i++) {
+		while (samples.size() > finalSize) {
 			samples.remove(0); // takes out all the extras
 		}
 		samples.addAll(generateSamples(samples, "with", finalSize - poolSize));
