@@ -28,13 +28,13 @@ public class DataGeneratorLoso {
 
 	public static void main(String[] args) {
 		// guaranteed number of distinct nodes in the initial structure
-		int poolSize = 100000;
+		int poolSize = 290000;
 
 		// Size of initial structure after repetitions are added
 		int initialSize = poolSize*5;
 
 		// final size of command lists
-		int finalSize = 50000;
+		int finalSize = 500000;
 
 		// number of extra unseen words for the testing files
 		// poolSize /4 means 80% known and 20% unknown

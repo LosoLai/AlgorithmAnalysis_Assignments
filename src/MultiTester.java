@@ -131,39 +131,39 @@ public class MultiTester {
 		// The files with the lists of commands
 		String[] testFileNames = new String[33];
 		//Loso's Filenames
-		testFileNames[0] = "FixData290000_OpSize50000_Test1_order.txt";
-		testFileNames[1] = "FixData290000_OpSize50000_Test1_random.txt";
-		testFileNames[2] = "FixData290000_OpSize50000_Test1_reverse.txt";
-		testFileNames[3] = "FixData290000_OpSize50000_Test2_order.txt";
-		testFileNames[4] = "FixData290000_OpSize50000_Test2_random.txt";
-		testFileNames[5] = "FixData290000_OpSize50000_Test2_reverse.txt";
-		testFileNames[6] = "FixData290000_OpSize50000_Test3_order.txt";
-		testFileNames[7] = "FixData290000_OpSize50000_Test3_random.txt";
-		testFileNames[8] = "FixData290000_OpSize50000_Test3_reverse.txt";
-		testFileNames[9] = "FixData290000_OpSize50000_Test4_order.txt";
-		testFileNames[10] = "FixData290000_OpSize50000_Test4_random.txt";
-		testFileNames[11] = "FixData290000_OpSize50000_Test4_reverse.txt";
-		testFileNames[12] = "FixData290000_OpSize50000_Test5_order.txt";
-		testFileNames[13] = "FixData290000_OpSize50000_Test5_random.txt";
-		testFileNames[14] = "FixData290000_OpSize50000_Test5_reverse.txt";
-		testFileNames[15] = "FixData290000_OpSize50000_Test6_order.txt";
-		testFileNames[16] = "FixData290000_OpSize50000_Test6_random.txt";
-		testFileNames[17] = "FixData290000_OpSize50000_Test6_reverse.txt";
-		testFileNames[18] = "FixData290000_OpSize50000_Test7_order.txt";
-		testFileNames[19] = "FixData290000_OpSize50000_Test7_random.txt";
-		testFileNames[20] = "FixData290000_OpSize50000_Test7_reverse.txt";
-		testFileNames[21] = "FixData290000_OpSize50000_Test8_order.txt";
-		testFileNames[22] = "FixData290000_OpSize50000_Test8_random.txt";
-		testFileNames[23] = "FixData290000_OpSize50000_Test8_reverse.txt";
-		testFileNames[24] = "FixData290000_OpSize50000_Test9_order.txt";
-		testFileNames[25] = "FixData290000_OpSize50000_Test9_random.txt";
-		testFileNames[26] = "FixData290000_OpSize50000_Test9_reverse.txt";
-		testFileNames[27] = "FixData290000_OpSize50000_Test10_order.txt";
-		testFileNames[28] = "FixData290000_OpSize50000_Test10_random.txt";
-		testFileNames[29] = "FixData290000_OpSize50000_Test10_reverse.txt";
-		testFileNames[30] = "FixData290000_OpSize50000_Test11_order.txt";
-		testFileNames[31] = "FixData290000_OpSize50000_Test11_random.txt";
-		testFileNames[32] = "FixData290000_OpSize50000_Test11_reverse.txt";
+		testFileNames[0] = "FixData290000_OpSize500000_Test1_order.txt";
+		testFileNames[1] = "FixData290000_OpSize500000_Test1_random.txt";
+		testFileNames[2] = "FixData290000_OpSize500000_Test1_reverse.txt";
+		testFileNames[3] = "FixData290000_OpSize500000_Test2_order.txt";
+		testFileNames[4] = "FixData290000_OpSize500000_Test2_random.txt";
+		testFileNames[5] = "FixData290000_OpSize500000_Test2_reverse.txt";
+		testFileNames[6] = "FixData290000_OpSize500000_Test3_order.txt";
+		testFileNames[7] = "FixData290000_OpSize500000_Test3_random.txt";
+		testFileNames[8] = "FixData290000_OpSize500000_Test3_reverse.txt";
+		testFileNames[9] = "FixData290000_OpSize500000_Test4_order.txt";
+		testFileNames[10] = "FixData290000_OpSize500000_Test4_random.txt";
+		testFileNames[11] = "FixData290000_OpSize500000_Test4_reverse.txt";
+		testFileNames[12] = "FixData290000_OpSize500000_Test5_order.txt";
+		testFileNames[13] = "FixData290000_OpSize500000_Test5_random.txt";
+		testFileNames[14] = "FixData290000_OpSize500000_Test5_reverse.txt";
+		testFileNames[15] = "FixData290000_OpSize500000_Test6_order.txt";
+		testFileNames[16] = "FixData290000_OpSize500000_Test6_random.txt";
+		testFileNames[17] = "FixData290000_OpSize500000_Test6_reverse.txt";
+		testFileNames[18] = "FixData290000_OpSize500000_Test7_order.txt";
+		testFileNames[19] = "FixData290000_OpSize500000_Test7_random.txt";
+		testFileNames[20] = "FixData290000_OpSize500000_Test7_reverse.txt";
+		testFileNames[21] = "FixData290000_OpSize500000_Test8_order.txt";
+		testFileNames[22] = "FixData290000_OpSize500000_Test8_random.txt";
+		testFileNames[23] = "FixData290000_OpSize500000_Test8_reverse.txt";
+		testFileNames[24] = "FixData290000_OpSize500000_Test9_order.txt";
+		testFileNames[25] = "FixData290000_OpSize500000_Test9_random.txt";
+		testFileNames[26] = "FixData290000_OpSize500000_Test9_reverse.txt";
+		testFileNames[27] = "FixData290000_OpSize500000_Test10_order.txt";
+		testFileNames[28] = "FixData290000_OpSize500000_Test10_random.txt";
+		testFileNames[29] = "FixData290000_OpSize500000_Test10_reverse.txt";
+		testFileNames[30] = "FixData290000_OpSize500000_Test11_order.txt";
+		testFileNames[31] = "FixData290000_OpSize500000_Test11_random.txt";
+		testFileNames[32] = "FixData290000_OpSize500000_Test11_reverse.txt";
 	
 		
 		
@@ -188,7 +188,7 @@ public class MultiTester {
 
 		// Run the tests and print the results to a file
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter("290000node_50000command.txt"), true);
+			PrintWriter out = new PrintWriter(new FileWriter("290000node_500000command.txt"), true);
 			Iterator<String> it = table.keySet().iterator();
 			while (it.hasNext()) {
 				String key = it.next();
