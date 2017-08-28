@@ -41,7 +41,7 @@ public class DataGeneratorLoso {
 		int extras = Math.round(poolSize / 4);
 
 		// name for all initial data files
-		String fileStub = "300000nodeinput";
+		String fileStub = Integer.toString(poolSize) + "nodeinput";
 
 		String[] dataOrder = { "random", "order", "reverse" };
 
