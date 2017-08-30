@@ -1,6 +1,11 @@
 import java.io.PrintStream;
+import java.io.Serializable;
 
-public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
+public class BstMultiset<T extends Comparable<T>> extends Multiset<T> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Reference to head of list. */
 	protected Node<T> root;
 
@@ -184,7 +189,12 @@ public class BstMultiset<T extends Comparable<T>> extends Multiset<T> {
 	/**
 	 * Node type, inner private class.
 	 */
-	private class Node<S extends Comparable<S>> {
+	private class Node<S extends Comparable<S>>  implements Serializable
+	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		/** Stored value of node. */
 		private S mValue;
 		private int count = 0;

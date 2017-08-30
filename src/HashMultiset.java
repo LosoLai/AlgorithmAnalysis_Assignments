@@ -1,5 +1,6 @@
 
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -9,8 +10,12 @@ import java.util.*;
  * 
  * @author jkcchan
  */
-public class HashMultiset<T> extends Multiset<T>
+public class HashMultiset<T> extends Multiset<T> implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Internal treemap used to implement multiset semantics. The mapped value stores the number of instances of each element. */
 	protected HashMap<T, Integer> mMap;
 

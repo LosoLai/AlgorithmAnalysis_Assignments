@@ -25,11 +25,11 @@ public class DataGeneratorLettisia {
 	}
 	
 	public static void main(String[] args) {
-		int poolSize = 1000; // guaranteed number of distinct nodes in the
+		int poolSize = Integer.parseInt(args[0]); // guaranteed number of distinct nodes in the
 								// structure
-		int finalSize = 5000; // actual final size of all files
+		int finalSize = poolSize*5; // actual final size of all files
 		int extras = poolSize/4; // number of extra unseen words for the testing files
-		String fileStub = "1000nodeinput2"; // name for all initial data files
+		String fileStub = args[0] + "nodeinput"; // name for all initial data files
 		int numTrials = 1;// number of sets of data sets to create
 		mRandGen = new Random(System.currentTimeMillis()); // Pick any seed to
 															// get the same
@@ -38,10 +38,9 @@ public class DataGeneratorLettisia {
 
 		// create data files for initial data structures
 		ArrayList<ArrayList<String>> allSamples = new ArrayList<ArrayList<String>>();
-		for (int i = 0; i < numTrials; i++) {
-			String fileName = fileStub + Integer.toString(i + 1) + ".txt";
-			allSamples.add(createStartingDataSets(poolSize, finalSize, extras, fileName));
-		}
+		String fileName = fileStub + ".txt";
+		allSamples.add(createStartingDataSets(poolSize, finalSize, extras, fileName));
+		
 
 		// create a testing file with various proportions of add, remove one and
 		// search in that order
@@ -228,7 +227,7 @@ public class DataGeneratorLettisia {
 		samples.addAll(generateSamples(samples, "with", finalSize - poolSize));
 		String[] commands = allA(samples.size());
 
-		writeDataFile(samples, commands, outFilename);
+		writeDataFile(samples, commands, "random" + outFilename);
 		Collections.sort(samples);
 		writeDataFile(samples, commands, "sorted" + outFilename);
 		Collections.reverse(samples);

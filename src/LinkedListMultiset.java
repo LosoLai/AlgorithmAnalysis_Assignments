@@ -11,11 +11,16 @@
  * Author : LosoLai(s3579161)
  */
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.*;
 
 
-public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
+public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T> implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Reference to head of list. */
     protected Node<T> mHead;
     /** Reference to tail of list. */
@@ -228,9 +233,13 @@ public class LinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
 	/**
      * Node type, inner private class.
      */
-    private class Node<T>
+    private class Node<T> implements Serializable 
     {
-        /** Stored value of node. */
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/** Stored value of node. */
         private T mValue;
         /** Reference to next node. */
         private Node<T> mNext;

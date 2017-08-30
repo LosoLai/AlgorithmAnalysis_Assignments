@@ -119,76 +119,77 @@ public class MultiTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		int nodeSize = Integer.parseInt(args[0]);
 		// Here are all the parameters
 		// Number of times to run each test
 		numTrials = 10;
 		// The files with all add commands to set up the data structures
-		String[] startFileNames = new String[3];
-		startFileNames[0] = "random290000nodeinput.txt";
-		startFileNames[1] = "reverse290000nodeinput.txt";
-		startFileNames[2] = "sorted290000nodeinput.txt";
+		String[] startFileNames = new String[1];
+		startFileNames[0] = "random"+ args[0] + "nodeinput.txt";
+		//startFileNames[1] = "reverse"+ args[0] + "nodeinput.txt";
+		//startFileNames[2] = "sorted" + args[0] + "nodeinput.txt";
 
 		// The files with the lists of commands
-		String[] testFileNames = new String[33];
+		String[] testFileNames = new String[11];
 		//Loso's Filenames
-		testFileNames[0] = "FixData290000_OpSize500000_Test1_order.txt";
-		testFileNames[1] = "FixData290000_OpSize500000_Test1_random.txt";
-		testFileNames[2] = "FixData290000_OpSize500000_Test1_reverse.txt";
-		testFileNames[3] = "FixData290000_OpSize500000_Test2_order.txt";
-		testFileNames[4] = "FixData290000_OpSize500000_Test2_random.txt";
-		testFileNames[5] = "FixData290000_OpSize500000_Test2_reverse.txt";
-		testFileNames[6] = "FixData290000_OpSize500000_Test3_order.txt";
-		testFileNames[7] = "FixData290000_OpSize500000_Test3_random.txt";
-		testFileNames[8] = "FixData290000_OpSize500000_Test3_reverse.txt";
-		testFileNames[9] = "FixData290000_OpSize500000_Test4_order.txt";
-		testFileNames[10] = "FixData290000_OpSize500000_Test4_random.txt";
-		testFileNames[11] = "FixData290000_OpSize500000_Test4_reverse.txt";
-		testFileNames[12] = "FixData290000_OpSize500000_Test5_order.txt";
-		testFileNames[13] = "FixData290000_OpSize500000_Test5_random.txt";
-		testFileNames[14] = "FixData290000_OpSize500000_Test5_reverse.txt";
-		testFileNames[15] = "FixData290000_OpSize500000_Test6_order.txt";
-		testFileNames[16] = "FixData290000_OpSize500000_Test6_random.txt";
-		testFileNames[17] = "FixData290000_OpSize500000_Test6_reverse.txt";
-		testFileNames[18] = "FixData290000_OpSize500000_Test7_order.txt";
-		testFileNames[19] = "FixData290000_OpSize500000_Test7_random.txt";
-		testFileNames[20] = "FixData290000_OpSize500000_Test7_reverse.txt";
-		testFileNames[21] = "FixData290000_OpSize500000_Test8_order.txt";
-		testFileNames[22] = "FixData290000_OpSize500000_Test8_random.txt";
-		testFileNames[23] = "FixData290000_OpSize500000_Test8_reverse.txt";
-		testFileNames[24] = "FixData290000_OpSize500000_Test9_order.txt";
-		testFileNames[25] = "FixData290000_OpSize500000_Test9_random.txt";
-		testFileNames[26] = "FixData290000_OpSize500000_Test9_reverse.txt";
-		testFileNames[27] = "FixData290000_OpSize500000_Test10_order.txt";
-		testFileNames[28] = "FixData290000_OpSize500000_Test10_random.txt";
-		testFileNames[29] = "FixData290000_OpSize500000_Test10_reverse.txt";
-		testFileNames[30] = "FixData290000_OpSize500000_Test11_order.txt";
-		testFileNames[31] = "FixData290000_OpSize500000_Test11_random.txt";
-		testFileNames[32] = "FixData290000_OpSize500000_Test11_reverse.txt";
+//		testFileNames[0] = "FixData290000_OpSize50000_Test1_order.txt";
+//		testFileNames[1] = "FixData290000_OpSize50000_Test1_random.txt";
+//		testFileNames[2] = "FixData290000_OpSize50000_Test1_reverse.txt";
+//		testFileNames[3] = "FixData290000_OpSize50000_Test2_order.txt";
+//		testFileNames[4] = "FixData290000_OpSize50000_Test2_random.txt";
+//		testFileNames[5] = "FixData290000_OpSize50000_Test2_reverse.txt";
+//		testFileNames[6] = "FixData290000_OpSize50000_Test3_order.txt";
+//		testFileNames[7] = "FixData290000_OpSize50000_Test3_random.txt";
+//		testFileNames[8] = "FixData290000_OpSize50000_Test3_reverse.txt";
+//		testFileNames[9] = "FixData290000_OpSize50000_Test4_order.txt";
+//		testFileNames[10] = "FixData290000_OpSize50000_Test4_random.txt";
+//		testFileNames[11] = "FixData290000_OpSize50000_Test4_reverse.txt";
+//		testFileNames[12] = "FixData290000_OpSize50000_Test5_order.txt";
+//		testFileNames[13] = "FixData290000_OpSize50000_Test5_random.txt";
+//		testFileNames[14] = "FixData290000_OpSize50000_Test5_reverse.txt";
+//		testFileNames[15] = "FixData290000_OpSize50000_Test6_order.txt";
+//		testFileNames[16] = "FixData290000_OpSize50000_Test6_random.txt";
+//		testFileNames[17] = "FixData290000_OpSize50000_Test6_reverse.txt";
+//		testFileNames[18] = "FixData290000_OpSize50000_Test7_order.txt";
+//		testFileNames[19] = "FixData290000_OpSize50000_Test7_random.txt";
+//		testFileNames[20] = "FixData290000_OpSize50000_Test7_reverse.txt";
+//		testFileNames[21] = "FixData290000_OpSize50000_Test8_order.txt";
+//		testFileNames[22] = "FixData290000_OpSize50000_Test8_random.txt";
+//		testFileNames[23] = "FixData290000_OpSize50000_Test8_reverse.txt";
+//		testFileNames[24] = "FixData290000_OpSize50000_Test9_order.txt";
+//		testFileNames[25] = "FixData290000_OpSize50000_Test9_random.txt";
+//		testFileNames[26] = "FixData290000_OpSize50000_Test9_reverse.txt";
+//		testFileNames[27] = "FixData290000_OpSize50000_Test10_order.txt";
+//		testFileNames[28] = "FixData290000_OpSize50000_Test10_random.txt";
+//		testFileNames[29] = "FixData290000_OpSize50000_Test10_reverse.txt";
+//		testFileNames[30] = "FixData290000_OpSize50000_Test11_order.txt";
+//		testFileNames[31] = "FixData290000_OpSize50000_Test11_random.txt";
+//		testFileNames[32] = "FixData290000_OpSize50000_Test11_reverse.txt";
 	
 		
-		
+		String comSize = Integer.toString(nodeSize*5);
 		
 		//Lettisia's filenames
-//		testFileNames[0] = "Test1_5000_A_1.0_RO_0.0_S_0.0.txt";
-//		testFileNames[1] = "Test2_5000_A_0.0_RO_1.0_S_0.0.txt";
-//		testFileNames[2] = "Test3_5000_A_0.0_RO_0.0_S_1.0.txt";
-//		testFileNames[3] = "Test4_5000_A_0.5_RO_0.0_S_0.5.txt";
-//		testFileNames[4] = "Test5_5000_A_0.5_RO_0.5_S_0.0.txt";
-//		testFileNames[5] = "Test6_5000_A_0.0_RO_0.5_S_0.5.txt";
-//		testFileNames[6] = "Test7_5000_A_0.75_RO_0.25_S_0.0.txt";
-//		testFileNames[7] = "Test8_5000_A_0.25_RO_0.75_S_0.0.txt";
-//		testFileNames[8] = "Test9_5000_A_0.375_RO_0.375_S_0.25.txt";
-//		testFileNames[9] = "Test10_5000_A_0.125_RO_0.125_S_0.75.txt";
-//		testFileNames[10] = "Test11_5000_A_0.25_RO_0.25_S_0.5.txt";
+		testFileNames[0] = "Test1_" + comSize + "_A_1.0_RO_0.0_S_0.0.txt";
+		testFileNames[1] = "Test2_" + comSize + "_A_0.0_RO_1.0_S_0.0.txt";
+		testFileNames[2] = "Test3_" + comSize + "_A_0.0_RO_0.0_S_1.0.txt";
+		testFileNames[3] = "Test4_" + comSize + "_A_0.5_RO_0.0_S_0.5.txt";
+		testFileNames[4] = "Test5_" + comSize + "_A_0.5_RO_0.5_S_0.0.txt";
+		testFileNames[5] = "Test6_" + comSize + "_A_0.0_RO_0.5_S_0.5.txt";
+		testFileNames[6] = "Test7_" + comSize + "_A_0.75_RO_0.25_S_0.0.txt";
+		testFileNames[7] = "Test8_" + comSize + "_A_0.25_RO_0.75_S_0.0.txt";
+		testFileNames[8] = "Test9_" + comSize + "_A_0.375_RO_0.375_S_0.25.txt";
+		testFileNames[9] = "Test10_" + comSize + "_A_0.125_RO_0.125_S_0.75.txt";
+		testFileNames[10] = "Test11_" + comSize + "_A_0.25_RO_0.25_S_0.5.txt";
 
 		HashMap<String, HashMap<String, HashMap<String, Double>>> table = new HashMap<>();
 		table.put(startFileNames[0], runTests(startFileNames[0], testFileNames));
-		table.put(startFileNames[1], runTests(startFileNames[1], testFileNames));
-		table.put(startFileNames[2], runTests(startFileNames[2], testFileNames));
+		//table.put(startFileNames[1], runTests(startFileNames[1], testFileNames));
+		//table.put(startFileNames[2], runTests(startFileNames[2], testFileNames));
 
 		// Run the tests and print the results to a file
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter("290000node_500000command.txt"), true);
+			PrintWriter out = new PrintWriter(new FileWriter(args[0] + "node_" + comSize + "command.txt"), true);
 			Iterator<String> it = table.keySet().iterator();
 			while (it.hasNext()) {
 				String key = it.next();
@@ -308,11 +309,12 @@ public class MultiTester {
 		HashMap<String, Double> result = new HashMap<>();
 
 		ArrayList<Multiset<String>> sets = new ArrayList<>();
-		sets.add(new LinkedListMultiset<String>());
+		
 		sets.add(new HashMultiset<String>());
-		sets.add(new BstMultiset<String>());
 		sets.add(new BalTreeMultiset<String>());
+		sets.add(new BstMultiset<String>());
 		sets.add(new SortedLinkedListMultiset<String>());
+		sets.add(new LinkedListMultiset<String>());
 
 		for (Iterator<Multiset<String>> iterator = sets.iterator(); iterator.hasNext();) {
 			Multiset<String> multiset = (Multiset<String>) iterator.next();

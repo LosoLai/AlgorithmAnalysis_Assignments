@@ -1,5 +1,6 @@
 
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -9,8 +10,12 @@ import java.util.*;
  * 
  * @author jkcchan
  */
-public abstract class  Multiset<T>
+public abstract class  Multiset<T> implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Delimiter string for print operation. */
 	protected static final String printDelim = " | ";
 

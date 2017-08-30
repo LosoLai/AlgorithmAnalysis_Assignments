@@ -34,7 +34,7 @@ public class DataGeneratorLoso {
 		int initialSize = poolSize*5;
 
 		// final size of command lists
-		int finalSize = 500000;
+		int finalSize = 50000;
 
 		// number of extra unseen words for the testing files
 		// poolSize /4 means 80% known and 20% unknown
